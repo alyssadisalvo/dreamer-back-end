@@ -72,9 +72,8 @@
 
 
      loadedImages = [];
-	 //selectImages =[];
-   var url1;
-   var url2;
+     var url1;
+     var url2;
 
 
         //get input values
@@ -107,21 +106,19 @@
 			updateURL(imageNum,imageNum2);
       printImages();
 
-			 //when refresh image1
+			 //when refreshing image1
 		 $("form#changeImages").submit(function changeImages(event) {
 			 event.preventDefault();
             $('#output').empty();
 			imageNum = Math.floor((Math.random()*loadedImages.length));
 		 if (imageNum == imageNum2){
 			imageNum = imageNum + 1;
-			console.log("chamge1-image1",imageNum);
-			console.log("chamge1-image2",imageNum2);
-			//selectImages.splice(0,1,loadedImages[imageNum]);
+			console.log("change1-image1",imageNum);
+			console.log("change1-image2",imageNum2);
 			printImages();
 		}else{
-			console.log("chamge1-1-image1",imageNum);
-			console.log("chamge1-1-image2",imageNum2);
-		//selectImages.splice(0,1,loadedImages[imageNum]);
+			console.log("change1-1-image1",imageNum);
+			console.log("change1-1-image2",imageNum2);
     updateURL(imageNum,imageNum2);
 		printImages();
 
@@ -130,21 +127,19 @@
 		});
 
 
-		//when refresh image2
+		//when refreshing image2
 		$("form#changeImages2").submit(function changeImages2(event) {
 			event.preventDefault();
          $('#output').empty();
 			imageNum2 = Math.floor((Math.random()*loadedImages.length));
 		 if (imageNum == imageNum2){
 			imageNum2 = imageNum2+1;
-			console.log("chamge2-image1",imageNum);
-			console.log("chamge2-image2",imageNum2);
-			//selectImages.splice(1,1,loadedImages[imageNum2]);
+			console.log("change2-image1",imageNum);
+			console.log("change2-image2",imageNum2);
 			printImages();
 		}else{
-			console.log("chamge2-1-image1",imageNum);
-			console.log("chamge2-1-image2",imageNum2);
-		//selectImages.splice(1,1,loadedImages[imageNum2]);
+			console.log("change2-1-image1",imageNum);
+			console.log("change2-1-image2",imageNum2);
     updateURL(imageNum,imageNum2);
     printImages();
 		}
@@ -164,17 +159,13 @@
     function updateURL(imageNum,imageNum2){
       url1 = loadedImages[imageNum];
       url2 = loadedImages[imageNum2];
-				//selectImages.push(loadedImages[imageNum]);
-			//selectImages.push(loadedImages[imageNum2]);
       var Image_Path_1 = url1;
       var Image_Path_2 = url2;
       console.log(Image_Path_1);
       console.log(Image_Path_2);
       document.getElementById('Image_Path_1').value = Image_Path_1;
       document.getElementById('Image_Path_2').value = Image_Path_2;
-			//printImages();
 			}
-    //change image1
 
 
 
@@ -211,7 +202,7 @@
 
 
         } else {
-	      //console.log("Not available: " + imgUrl);
+
         }
     }
 
@@ -273,10 +264,6 @@
     }
 
     }(jQuery));
-
-
-  //document.write('<input type="hidden" name="Image_Path_1" id="Image_Path_1" value="'+selectImages[0]+'"/>');
-  //document.write('<input type="hidden" name="Image_Path_2" id="Image_Path_2" value="'+selectImages[1]+'"/>');
 
 </script>
 

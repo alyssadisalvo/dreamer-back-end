@@ -28,11 +28,11 @@ $Image_Path_2 = 0;
 $sql = "INSERT INTO `Orb` (`orbID`, `Story`, `Emotion`,`Image_Path_1`, `Image_Path_2`) VALUES ('$orbID', '$Story', '$Emotion','$Image_Path_1','$Image_Path_2')";
 
 
-if(mysqli_query($conn, $sql)){
-    echo "Records added successfully.";
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-}
+//if(mysqli_query($conn, $sql)){
+    //echo "Records added successfully.";
+//} else{
+    //echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+//}
 
 // close connection
 mysqli_close($conn);

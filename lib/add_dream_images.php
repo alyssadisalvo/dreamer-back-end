@@ -30,11 +30,11 @@ $Image_Path_2 = mysqli_real_escape_string($conn, $_POST['Image_Path_2']);
 $sql = "UPDATE Orb SET Image_Path_1 = '".$Image_Path_1."', Image_Path_2 = '".$Image_Path_2."' WHERE orbID = '".$orbID."'";
 
 
-if(mysqli_query($conn, $sql)){
-    echo "Records added successfully.";
-} else{
-    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-}
+//if(mysqli_query($conn, $sql)){
+    //echo "Records added successfully.";
+//} else{
+    //echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+//}
 
 
 // close connection
