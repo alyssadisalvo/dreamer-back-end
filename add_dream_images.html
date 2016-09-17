@@ -43,6 +43,12 @@
 		<div id="output">
 		</div>
 
+    <form action="lib/add_dream_images.php" method="post" name="addimages" enctype="multipart/form-data" id="newDreamImageForm">
+      <input type="hidden" name="Image_Path_1" id="Image_Path_1" value="" />
+      <input type="hidden" name="Image_Path_2" id="Image_Path_2" value="" />
+      <input type="submit" id="newDreamImageSubmit" value="Submit Dream" data-dismiss="modal">
+    </form>
+
 		</div>
 			</div>
 		<footer></footer>
@@ -66,7 +72,9 @@
 
 
      loadedImages = [];
-	 selectImages =[];
+	 //selectImages =[];
+   var url1;
+   var url2;
 
 
         //get input values
@@ -84,31 +92,40 @@
         //get the JSON information we need to display the images
         $.getJSON(url, function(data) {
             $('#output').empty();
-
+            console.log(data);
 			console.log(loadedImages.length);
 
             $.each(data.response.zone[0].records.work, processImages);
 			var imageNum = Math.floor((Math.random()*loadedImages.length));
-	        var imageNum2 = Math.floor((Math.random()*loadedImages.length));
+	        var imageNum2 = imageNum + 1;
 
             console.log(loadedImages.length);
 	      console.log("first search image1-1",imageNum);
      console.log("first search image2-2",imageNum2);
 
-	 if (imageNum == imageNum2){
 
-			imageNum2= imageNum2+1;
+			updateURL(imageNum,imageNum2);
+      printImages();
 
-			addUlr(imageNum,imageNum2);
-			}else{
-			addUlr(imageNum,imageNum2);
-			}
 			 //when refresh image1
 		 $("form#changeImages").submit(function changeImages(event) {
 			 event.preventDefault();
-          $('#output').empty();
-			changeImage1(imageNum,imageNum2);
+            $('#output').empty();
+			imageNum = Math.floor((Math.random()*loadedImages.length));
+		 if (imageNum == imageNum2){
+			imageNum = imageNum + 1;
+			console.log("chamge1-image1",imageNum);
+			console.log("chamge1-image2",imageNum2);
+			//selectImages.splice(0,1,loadedImages[imageNum]);
+			printImages();
+		}else{
+			console.log("chamge1-1-image1",imageNum);
+			console.log("chamge1-1-image2",imageNum2);
+		//selectImages.splice(0,1,loadedImages[imageNum]);
+    updateURL(imageNum,imageNum2);
+		printImages();
 
+  }
 
 		});
 
@@ -117,7 +134,20 @@
 		$("form#changeImages2").submit(function changeImages2(event) {
 			event.preventDefault();
          $('#output').empty();
-			changeImage2(imageNum,imageNum2);
+			imageNum2 = Math.floor((Math.random()*loadedImages.length));
+		 if (imageNum == imageNum2){
+			imageNum2 = imageNum2+1;
+			console.log("chamge2-image1",imageNum);
+			console.log("chamge2-image2",imageNum2);
+			//selectImages.splice(1,1,loadedImages[imageNum2]);
+			printImages();
+		}else{
+			console.log("chamge2-1-image1",imageNum);
+			console.log("chamge2-1-image2",imageNum2);
+		//selectImages.splice(1,1,loadedImages[imageNum2]);
+    updateURL(imageNum,imageNum2);
+    printImages();
+		}
 
 
 		});
@@ -126,35 +156,27 @@
 
 
         });
+
+
+
     });
     //add two images URL into array and print them out
-    function addUlr(imageNum,imageNum2){
-				selectImages.push(loadedImages[imageNum]);
-			selectImages.push(loadedImages[imageNum2]);
-
-			printImages();
+    function updateURL(imageNum,imageNum2){
+      url1 = loadedImages[imageNum];
+      url2 = loadedImages[imageNum2];
+				//selectImages.push(loadedImages[imageNum]);
+			//selectImages.push(loadedImages[imageNum2]);
+      var Image_Path_1 = url1;
+      var Image_Path_2 = url2;
+      console.log(Image_Path_1);
+      console.log(Image_Path_2);
+      document.getElementById('Image_Path_1').value = Image_Path_1;
+      document.getElementById('Image_Path_2').value = Image_Path_2;
+			//printImages();
 			}
     //change image1
-    function changeImage1(imageNum,imageNum2){
 
-		imageNum = Math.floor((Math.random()*loadedImages.length));
-		if (imageNum == imageNum2){
-			imageNum = imageNum+1;
 
-		}else{
-		selectImages.splice(0,1,loadedImages[imageNum]);
-		console.log(selectImages);
-		printImages();}
-	}
-	 function changeImage2(imageNum,imageNum2){
-		 imageNum2 = Math.floor((Math.random()*loadedImages.length));
-		 if (imageNum == imageNum2){
-			imageNum2 = imageNum2+1;
-		}else{
-		selectImages.splice(1,1,loadedImages[imageNum2]);
-		printImages();
-		}
-	}
 
     function processImages(index, troveItem) {
 
@@ -189,7 +211,7 @@
 
 
         } else {
-	      console.log("Not available: " + imgUrl);
+	      //console.log("Not available: " + imgUrl);
         }
     }
 
@@ -216,16 +238,24 @@
         $("#output").append("<h3>Image Search Results</h3>");
 
 	// Print out all images
-        for (var i in selectImages) {
-            var image = new Image();
-            image.src = selectImages[i];
-            image.style.display = "inline-block";
-            image.style.width = "48%";
-            image.style.margin = "1%";
-            image.style.verticalAlign = "top";
 
-            $("#output").append(image);
-        }
+        var image1 = new Image();
+        image1.src = url1;
+        image1.style.display = "inline-block";
+        image1.style.width = "48%";
+        image1.style.margin = "1%";
+        image1.style.verticalAlign = "top";
+
+        $("#output").append(image1);
+
+        var image2 = new Image();
+        image2.src = url2;
+        image2.style.display = "inline-block";
+        image2.style.width = "48%";
+        image2.style.margin = "1%";
+        image2.style.verticalAlign = "top";
+
+        $("#output").append(image2);
 
     }
 
@@ -245,8 +275,11 @@
     }(jQuery));
 
 
-
+  //document.write('<input type="hidden" name="Image_Path_1" id="Image_Path_1" value="'+selectImages[0]+'"/>');
+  //document.write('<input type="hidden" name="Image_Path_2" id="Image_Path_2" value="'+selectImages[1]+'"/>');
 
 </script>
+
+
 	</body>
 </html>
