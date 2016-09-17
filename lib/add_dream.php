@@ -8,12 +8,18 @@ if($conn === false){
 }
 
 // Escape user inputs for security
-$orbID = mysqli_real_escape_string($conn, $_POST['orbID']);
+//$orbID = mysqli_real_escape_string($conn, $_POST['orbID']);
 $Story = mysqli_real_escape_string($conn, $_POST['Story']);
 $Emotion = mysqli_real_escape_string($conn, $_POST['Emotion']);
 
-$sql = "INSERT INTO `Orb` (`Story`, `Emotion`) VALUES ('$Story, '$Emotion')";
-//$sql = "INSERT INTO `Orb` (`Story`, `Emotion`,`Image_Path_1`, `Image_Path_2`) VALUES ('$Story, '$Emotion','$Image_Path_1','$Image_Path_2')";
+$orbID = 8;
+$Image_Path_1 = flower;
+$Image_Path_2 = bread;
+
+
+
+//$sql = "INSERT INTO `Orb` (`Story`, `Emotion`) VALUES ('$Story, '$Emotion')";
+$sql = "INSERT INTO `Orb` (`orbID`, `Story`, `Emotion`,`Image_Path_1`, `Image_Path_2`) VALUES ('$orbID', '$Story', '$Emotion','$Image_Path_1','$Image_Path_2')";
 
 //$sql = "UPDATE Orb SET Story = '".$Story."' WHERE orbID = '".$orbID."'";
 //echo $orbID;
@@ -37,5 +43,5 @@ mysqli_close($conn);
 ?>
 
 <script type='text/javascript'>
-  window.location.href = "index.html";
+  window.location.href = "../index.html";
 </script>
