@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Dreamer</title>
+		<title>dreamer API</title>
 
 		<script src="https://code.jquery.com/jquery-1.12.3.js"></script>
 		<meta charset="utf-8">
@@ -10,19 +10,35 @@
 	<body>
 	<div class="site-main" id="main">
 
+	  <div class="entry-content wide">
+
+
 
 		<form action="#" id="searchTrove">
 			<input id="searchTerm" type="text" />
+
+
+
 			<button type="submit" id="searchbtn">Search</button>
+
 		</form>
 
 		<form action="#" id="changeImages">
-			<button type="submit" id="changeImage1">change1</button>
-    </form>
+		<button type="submit" id="changeImage1">change1</button>
 
-	  <form action="#" id="changeImages2">
-			<button type="submit" id="changeImage2">change2</button>
-		</form>
+
+        </form>
+
+	   <form action="#" id="changeImages2">
+		<button type="submit" id="changeImage2">change2</button>
+
+
+        </form>
+
+
+
+
+
 
 		<div id="output">
 		</div>
@@ -42,15 +58,16 @@
 (function($){
 
 
+
     $("form#searchTrove").submit(function searchTrove(event) {
         event.preventDefault();
 
 
 
-	var imageNum = Math.floor((Math.random()*loadedImages.length));
-	 var imageNum2 = Math.floor((Math.random()*loadedImages.length));
+
      loadedImages = [];
 	 selectImages =[];
+
 
         //get input values
         var searchTerm = $("#searchTerm").val().trim();
@@ -61,9 +78,35 @@
         //create searh query
         var url = "http://api.trove.nla.gov.au/result?key=" + apiKey + "&l-availability=y%2Ff&l-format=Art+work&encoding=json&zone=picture" + "&sortby=relevance&n=100&q=" + searchTerm + "&callback=?";
 
-		 //when refresh image1
+
+
+
+        //get the JSON information we need to display the images
+        $.getJSON(url, function(data) {
+            $('#output').empty();
+
+			console.log(loadedImages.length);
+
+            $.each(data.response.zone[0].records.work, processImages);
+			var imageNum = Math.floor((Math.random()*loadedImages.length));
+	        var imageNum2 = Math.floor((Math.random()*loadedImages.length));
+
+            console.log(loadedImages.length);
+	      console.log("first search image1-1",imageNum);
+     console.log("first search image2-2",imageNum2);
+
+	 if (imageNum == imageNum2){
+
+			imageNum2= imageNum2+1;
+
+			addUlr(imageNum,imageNum2);
+			}else{
+			addUlr(imageNum,imageNum2);
+			}
+			 //when refresh image1
 		 $("form#changeImages").submit(function changeImages(event) {
-         $('#output').empty();
+			 event.preventDefault();
+          $('#output').empty();
 			changeImage1(imageNum,imageNum2);
 
 
@@ -72,6 +115,7 @@
 
 		//when refresh image2
 		$("form#changeImages2").submit(function changeImages2(event) {
+			event.preventDefault();
          $('#output').empty();
 			changeImage2(imageNum,imageNum2);
 
@@ -79,26 +123,6 @@
 		});
 
 
-        //get the JSON information we need to display the images
-        $.getJSON(url, function(data) {
-            $('#output').empty();
-            //console.log(data);
-            $.each(data.response.zone[0].records.work, processImages);
-            //printImages();
-
-
-
-			console.log(imageNum);
-
-			console.log(imageNum2);
-			if (imageNum == imageNum2){
-
-			imageNum2= imageNum2+1;
-			console.log(imageNum2);
-			addUlr(imageNum,imageNum2);
-			}else{
-			addUlr(imageNum,imageNum2);
-			}
 
 
         });
@@ -112,11 +136,14 @@
 			}
     //change image1
     function changeImage1(imageNum,imageNum2){
+
 		imageNum = Math.floor((Math.random()*loadedImages.length));
 		if (imageNum == imageNum2){
 			imageNum = imageNum+1;
+
 		}else{
 		selectImages.splice(0,1,loadedImages[imageNum]);
+		console.log(selectImages);
 		printImages();}
 	}
 	 function changeImage2(imageNum,imageNum2){
@@ -124,12 +151,13 @@
 		 if (imageNum == imageNum2){
 			imageNum2 = imageNum2+1;
 		}else{
-		selectImages.splice(1,2,loadedImages[imageNum2]);
+		selectImages.splice(1,1,loadedImages[imageNum2]);
 		printImages();
 		}
 	}
 
     function processImages(index, troveItem) {
+
         var imgUrl = troveItem.identifier[0].value;
         if (imgUrl.indexOf(urlPatterns[0]) >= 0) { // flickr
 		found++;
@@ -158,6 +186,7 @@
             loadedImages.push(
                 imgUrl.slice(0, imgUrl.length - 3) + "jpg"
 		);
+
 
         } else {
 	      console.log("Not available: " + imgUrl);
@@ -214,6 +243,8 @@
     }
 
     }(jQuery));
+
+
 
 
 </script>
