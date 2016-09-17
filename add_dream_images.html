@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>dreamer API</title>
+		<title>Dreamer</title>
 
 		<script src="https://code.jquery.com/jquery-1.12.3.js"></script>
 		<meta charset="utf-8">
@@ -40,7 +40,6 @@
     var urlPatterns = ["flickr.com", "nla.gov.au", "artsearch.nga.gov.au", "recordsearch.naa.gov.au", "images.slsa.sa.gov.au"];
     var found = 0;
 (function($){
-$('#output').empty();
 
 
     $("form#searchTrove").submit(function searchTrove(event) {
@@ -52,8 +51,6 @@ $('#output').empty();
 	 var imageNum2 = Math.floor((Math.random()*loadedImages.length));
      loadedImages = [];
 	 selectImages =[];
-
-     $('#output').empty();
 
         //get input values
         var searchTerm = $("#searchTerm").val().trim();

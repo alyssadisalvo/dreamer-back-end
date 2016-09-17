@@ -25,7 +25,6 @@ $Emotion = mysqli_real_escape_string($conn, $_POST['Emotion']);
 $Image_Path_1 = 0;
 $Image_Path_2 = 0;
 
-//$sql = "INSERT INTO `Orb` (`Story`, `Emotion`) VALUES ('$Story, '$Emotion')";
 $sql = "INSERT INTO `Orb` (`orbID`, `Story`, `Emotion`,`Image_Path_1`, `Image_Path_2`) VALUES ('$orbID', '$Story', '$Emotion','$Image_Path_1','$Image_Path_2')";
 
 
