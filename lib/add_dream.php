@@ -8,17 +8,21 @@ if($conn === false){
 }
 
 // Escape user inputs for security
-//$orbID = mysqli_real_escape_string($conn, $_POST['orbID']);
+$orbID = mysqli_real_escape_string($conn, $_POST['orbID']);
 $Story = mysqli_real_escape_string($conn, $_POST['Story']);
+$Emotion = mysqli_real_escape_string($conn, $_POST['Emotion']);
 
-$sql = "UPDATE Orb SET Story = '".$Story."' WHERE orbID = '".$orbID."'";
+$sql = "INSERT INTO `Orb` (`Story`, `Emotion`) VALUES ('$Story, '$Emotion')";
+//$sql = "INSERT INTO `Orb` (`Story`, `Emotion`,`Image_Path_1`, `Image_Path_2`) VALUES ('$Story, '$Emotion','$Image_Path_1','$Image_Path_2')";
+
+//$sql = "UPDATE Orb SET Story = '".$Story."' WHERE orbID = '".$orbID."'";
 //echo $orbID;
 //echo $Story;
 
-$sql = "UPDATE Orb SET Emotion = '".$Emotion."' WHERE orbID = '".$orbID."'";
+//$sql = "UPDATE Orb SET Emotion = '".$Emotion."' WHERE orbID = '".$orbID."'";
 
-$sql = "UPDATE Orb SET Image_Path_1 = '".$Image_Path_1."' WHERE orbID = '".$orbID."'";
-$sql = "UPDATE Orb SET Image_Path_2 = '".$Image_Path_2."' WHERE orbID = '".$orbID."'";
+//$sql = "UPDATE Orb SET Image_Path_1 = '".$Image_Path_1."' WHERE orbID = '".$orbID."'";
+//$sql = "UPDATE Orb SET Image_Path_2 = '".$Image_Path_2."' WHERE orbID = '".$orbID."'";
 
 if(mysqli_query($conn, $sql)){
     echo "Records added successfully.";
@@ -31,3 +35,7 @@ mysqli_close($conn);
 
 
 ?>
+
+<script type='text/javascript'>
+  window.location.href = "index.html";
+</script>
